@@ -9,6 +9,9 @@ const getSlotController=require('./doctorcontroller/slotController')
 const docController=require('./doctorcontroller/authContoller')
 const patientChooseController=require('./doctorcontroller/chooseDocController')
 const appointController=require('./controllers/appointController')
+const latestAppointController=require('./controllers/followupController')
+const followDateController=require('./controllers/followDateController')
+const showAppoController=require('./controllers/showAppoController')
 const route= new express.Router()
 
 module.exports=route
@@ -62,3 +65,15 @@ route.post('/choose_doc',patientChooseController.fetchdocController)
 // book appointment
 
 route.post('/book_appoinment',jwtMiddleware,appointController.appointmentController)
+
+// follow up
+
+route.get('/follow_up',jwtMiddleware,latestAppointController.followAppointController)
+
+// follow up time
+
+route.post('/followup_date',followDateController.followUpController)
+
+// show appo
+
+route.get('/show_appointment',jwtMiddleware,showAppoController.showApoointmentController)

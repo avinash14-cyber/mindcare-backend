@@ -9,6 +9,15 @@ exports.appointmentController=async(req,res)=>{
         currentsession.startTransaction();
         const patid=req.userID
         const{doctor,time,date,session}=req.body
+            // console.log(doctor);
+            // console.log(time);
+            // console.log(date);
+            // console.log(session);
+            console.log(req.body);
+            
+            
+            
+            
             
             
         await Slot.create(
@@ -38,7 +47,7 @@ await appo.create(
         await currentsession.commitTransaction();
         currentsession.endSession();
         res.status(200).json("Appointment booked")
-        console.log("completed");
+      
         
     }catch(err){
         console.error("Transaction error:", err);
