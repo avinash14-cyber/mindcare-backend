@@ -10,9 +10,9 @@ exports.showApoointmentController=async(req,res)=>{
   patientId: req.userID,
   status: "BOOKED"
 })
-.sort({ date: 1, hour: 1 }).select("date hour minute") 
+.sort({ date: 1, hour: 1 }).select("date hour minute session") 
 .populate("doctorId", "name speciality")
-.limit(1);
+
 
 res.status(200).json(appointment)
     }catch(err){
