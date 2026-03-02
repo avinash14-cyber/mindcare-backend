@@ -12,6 +12,7 @@ const appointController=require('./controllers/appointController')
 const latestAppointController=require('./controllers/followupController')
 const followDateController=require('./controllers/followDateController')
 const showAppoController=require('./controllers/showAppoController')
+const deleteAppoController=require('./controllers/deleteAppoController')
 const route= new express.Router()
 
 module.exports=route
@@ -77,3 +78,7 @@ route.post('/followup_date',followDateController.followUpController)
 // show appo
 
 route.get('/show_appointment',jwtMiddleware,showAppoController.showApoointmentController)
+
+// delete appointment
+
+route.post('/delete_appoointment',jwtMiddleware,deleteAppoController.deleteAppointmentController)

@@ -2,7 +2,7 @@ const jwt=require("jsonwebtoken")
 
 const jwtmiddleware=(req,res,next)=>{
 
-    console.log("insidejwttttt");
+    
     
     
     const token=req.headers.authorization.split(' ')[1]
@@ -16,6 +16,8 @@ try{
     
     
     req.userID=decode.userid
+    
+    
     next()
               
     }catch(err){
