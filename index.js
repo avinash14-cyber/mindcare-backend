@@ -1,5 +1,6 @@
 require('dotenv').config()
 require('./databaseConnection')
+require('./cronUpdater');
 const express =require('express')
 const cors=require('cors')
 const route=require('./routes')

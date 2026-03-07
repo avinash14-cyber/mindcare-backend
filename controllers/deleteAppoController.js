@@ -19,7 +19,7 @@ exports.deleteAppointmentController=async(req,res)=>{
         minute,
         isAvailable:false
     })
-    return res.status(200)
+    return res.status(200).json("completed")
     }catch(err){
         return res.status(500).json(err)
     }

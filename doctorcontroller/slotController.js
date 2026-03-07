@@ -9,8 +9,7 @@ exports.slotController=async(req,res)=>{
         const id=req.userID
        
         
-        console.log(updatedAvailability);
-        console.log(id);
+        
 
         const doctor = await doc.findById(id)
         let mergedAvailability={...doctor.slots}
@@ -57,9 +56,7 @@ exports.fetchSlotController=async(req,res)=>{
     }
 
     res.status(200).json(result.slots || [])
-       console.log("Inside fetch");
        
-        console.log(result);
         
         
     }
@@ -72,10 +69,9 @@ exports.fetchSlotController=async(req,res)=>{
 
 exports.deleteSlotController=async(req,res)=>{
 
-    console.log(`inside controlle`);    
+      
     const {label,Day}=req.body
-    console.log(`inside controller ${label}`);
-    console.log(Day);
+    
     
     const id=req.userID
     

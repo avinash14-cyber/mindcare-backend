@@ -2,8 +2,10 @@ const jwt=require("jsonwebtoken")
 
 const jwtmiddleware=(req,res,next)=>{
 
+    console.log('inside middleware');
+    
     const token=req.headers.authorization.split(' ')[1]
-    console.log(token)
+   
     
                
 try{
@@ -13,8 +15,8 @@ try{
     
     
     req.userID=decode.docid
-    console.log(req.userID);
-    console.log("finished middleware");
+    
+    
     
     next()
               
