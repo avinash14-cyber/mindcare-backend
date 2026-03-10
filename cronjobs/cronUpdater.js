@@ -1,6 +1,6 @@
 const cron = require("node-cron");
 const dayjs = require("dayjs");
-const appo=require('./model/appointmentsModel')
+const appo=require('../model/appointmentsModel')
 
 cron.schedule("*/5 * * * *", async () => {
  

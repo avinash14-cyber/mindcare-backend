@@ -1,6 +1,7 @@
 const Slot=require('../slotmodel/slotModel')
 const appo=require('../model/appointmentsModel')
 const mongoose=require('mongoose')
+const Emotion = require("../model/emotionModel");
 exports.appointmentController=async(req,res)=>{
 
     const currentsession=await mongoose.startSession()
@@ -43,6 +44,18 @@ await appo.create(
         status: "BOOKED"
     }],
 {session:currentsession})
+
+    let emotion = await Emotion.findOne({ patientID: patid }).session(currentsession)
+
+if (!emotion) {
+  await Emotion.create([{
+    patientID: patid,
+    wellness: 55
+  }], { session: currentsession })
+} else if (emotion.wellness < 95) {
+  emotion.wellness += 5
+  await emotion.save({ session: currentsession })
+}
 
         await currentsession.commitTransaction();
         currentsession.endSession();

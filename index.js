@@ -1,6 +1,7 @@
 require('dotenv').config()
 require('./databaseConnection')
-require('./cronUpdater');
+require('./cronjobs/cronUpdater');
+require('./cronjobs/wellnessUpdate')
 const express =require('express')
 const cors=require('cors')
 const route=require('./routes')

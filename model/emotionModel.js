@@ -20,16 +20,25 @@ const emotionSchema=mongoose.Schema({
           type: [String],
           default: []
         },
+         comments:{
+        type:String,
+        required:false
+    },
+         createdAt: {
+      type: Date,
+      default: Date.now
+    }
        
       }
     ],
     
   },
-    comments:{
-        type:String,
-        required:false
-    }
+  wellness: {
+  type: Number,
+  default: 50
+},
+   
 })
-
+emotionSchema.index({ patientID: 1 },{ unique: true })
 const emotions=mongoose.model("user_emotions",emotionSchema)
 module.exports=emotions
