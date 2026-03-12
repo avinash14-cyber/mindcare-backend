@@ -37,6 +37,12 @@ const emotionSchema=mongoose.Schema({
   type: Number,
   default: 50
 },
+
+moodstreak:{
+  type:Number,
+  required:false,
+  default:0
+}
    
 })
 emotionSchema.index({ patientID: 1 },{ unique: true })

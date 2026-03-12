@@ -14,6 +14,7 @@ const followDateController=require('./controllers/followDateController')
 const showAppoController=require('./controllers/showAppoController')
 const deleteAppoController=require('./controllers/deleteAppoController')
 const appolistController=require('./doctorcontroller/appolistController')
+const riskController=require('./doctorcontroller/riskController')
 const route= new express.Router()
 
 module.exports=route
@@ -87,3 +88,7 @@ route.post('/delete_appoointment',jwtMiddleware,deleteAppoController.deleteAppoi
 // get doc appointments
 
 route.get('/doc_appointments',docMiddleware,appolistController.getAppointmentController)
+
+// risk patients
+
+route.get('/risk_patients',docMiddleware,riskController.patientRiskController)

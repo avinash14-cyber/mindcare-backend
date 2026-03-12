@@ -9,7 +9,7 @@ exports.getAppointmentController=async(req,res)=>{
   status: "BOOKED"
 })
 .select("hour minute session date patientId")
-.populate("patientId", "name");
+.populate("patientId", "name wellness");
 
 return res.status(200).json(data)
 
