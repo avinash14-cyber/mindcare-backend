@@ -1,9 +1,7 @@
 const appo=require('../model/appointmentsModel')
 
 exports.showApoointmentController=async(req,res)=>{
-    console.log("inside controllerrrr");
-    
-    console.log(req.userID);
+   
     
     try{
         const appointment = await appo.findOne({

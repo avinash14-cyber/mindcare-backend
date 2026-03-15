@@ -16,6 +16,9 @@ const deleteAppoController=require('./controllers/deleteAppoController')
 const appolistController=require('./doctorcontroller/appolistController')
 const riskController=require('./doctorcontroller/riskController')
 const totalController=require('./doctorcontroller/totalController')
+const wellnessController=require('./controllers/wellnessController')
+const breathController=require('./controllers/breathController')
+const latestController=require('./controllers/latestController')
 const route= new express.Router()
 
 module.exports=route
@@ -97,3 +100,13 @@ route.get('/risk_patients',docMiddleware,riskController.patientRiskController)
 // total patients
 
 route.get('/total_patients',docMiddleware,totalController.totalPatientController)
+
+// wellness score
+
+route.get('/wellness_score',jwtMiddleware,wellnessController.getwellnessController)
+
+// breathing points
+route.post('/breathing_points',jwtMiddleware,breathController.breathingPointsController)
+
+// get latest mood
+route.get('/latest_mood',jwtMiddleware,latestController.latestMoodController)
