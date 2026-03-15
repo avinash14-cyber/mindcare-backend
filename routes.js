@@ -15,6 +15,7 @@ const showAppoController=require('./controllers/showAppoController')
 const deleteAppoController=require('./controllers/deleteAppoController')
 const appolistController=require('./doctorcontroller/appolistController')
 const riskController=require('./doctorcontroller/riskController')
+const totalController=require('./doctorcontroller/totalController')
 const route= new express.Router()
 
 module.exports=route
@@ -92,3 +93,7 @@ route.get('/doc_appointments',docMiddleware,appolistController.getAppointmentCon
 // risk patients
 
 route.get('/risk_patients',docMiddleware,riskController.patientRiskController)
+
+// total patients
+
+route.get('/total_patients',docMiddleware,totalController.totalPatientController)

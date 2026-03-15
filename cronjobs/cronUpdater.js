@@ -27,7 +27,8 @@ cron.schedule("*/5 * * * *", async () => {
         { _id: app._id },
         { $set: { status: "Not Attended" } }
       );
+      console.log("✅ Marked NO_SHOW for:", app._id);
     }
-    console.log("✅ Marked NO_SHOW for:", app._id);
+    
   }
 });
