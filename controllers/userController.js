@@ -50,6 +50,7 @@ exports.loginController=async(req,res)=>{
                     
                     name:existingUser.name,
                     email:existingUser.email,
+                    id:existingUser._id
                 },token})
             }
             else{

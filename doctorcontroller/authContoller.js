@@ -43,7 +43,7 @@ exports.docLoginController=async(req,res)=>{
         
             const token=jwt.sign({docid:result._id},process.env.jwt_doctor_secret)
             return res.status(200).json({docInfo:{name:result.name,
-                speciality:result.speciality},
+                speciality:result.speciality,id:result?._id},
                 token})
         
         

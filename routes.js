@@ -19,6 +19,7 @@ const totalController=require('./doctorcontroller/totalController')
 const wellnessController=require('./controllers/wellnessController')
 const breathController=require('./controllers/breathController')
 const latestController=require('./controllers/latestController')
+const idController=require('./doctorcontroller/idController')
 const route= new express.Router()
 
 module.exports=route
@@ -110,3 +111,6 @@ route.post('/breathing_points',jwtMiddleware,breathController.breathingPointsCon
 
 // get latest mood
 route.get('/latest_mood',jwtMiddleware,latestController.latestMoodController)
+
+// get all id
+route.get('/get_all_id',docMiddleware,idController.allIdController)
