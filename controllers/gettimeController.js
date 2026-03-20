@@ -1,15 +1,17 @@
 const appo=require('../model/appointmentsModel')
 
-exports.showApoointmentController=async(req,res)=>{
+exports.allTimeController=async(req,res)=>{
    
     
     try{
+        
+        
         const appointment = await appo.findOne({
   patientId: req.userID,
   status: "BOOKED"
 })
-.sort({ date: 1, hour: 1 }).select("date hour minute session doctorId") 
-.populate("doctorId", "name speciality")
+.sort({ date: 1, hour: 1 }).select("date hour minute").populate("doctorId", "name ")
+
 
 
 

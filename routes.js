@@ -20,6 +20,9 @@ const wellnessController=require('./controllers/wellnessController')
 const breathController=require('./controllers/breathController')
 const latestController=require('./controllers/latestController')
 const idController=require('./doctorcontroller/idController')
+const gettimeController=require('./controllers/gettimeController')  
+const endController=require('./controllers/endController')
+const messageController=require('./controllers/messageController')
 const route= new express.Router()
 
 module.exports=route
@@ -114,3 +117,16 @@ route.get('/latest_mood',jwtMiddleware,latestController.latestMoodController)
 
 // get all id
 route.get('/get_all_id',docMiddleware,idController.allIdController)
+
+// /get_time_slot
+route.get('/get_time_slot',jwtMiddleware,gettimeController.allTimeController)
+
+// end session
+route.patch('/end_session',jwtMiddleware,endController.endSessionController)
+
+// chat messages
+route.get('/messages/:chatId',jwtMiddleware,messageController.getChatHistoryController)
+
+// get chat history
+
+route.get('/doc_messages/:chatId',docMiddleware,messageController.getChatHistoryController)

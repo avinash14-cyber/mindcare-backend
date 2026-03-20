@@ -11,7 +11,7 @@ const { Server } = require('socket.io')
 mindcareServer.use(cors())
 mindcareServer.use(express.json())
 mindcareServer.use(route)
-
+const messages=require('./model/messageModel')
 const PORT=4000|| process.env.PORT
 
 const server = http.createServer(mindcareServer)
@@ -31,11 +31,20 @@ io.on("connection",(socket)=>{
         console.log(`User joined room: ${chatId}`)
     })
 
-    socket.on("send_message",(data)=>{
+    socket.on("send_message",async(data)=>{
         console.log("Message:",data)
 
         
-        io.to(data.chatId).emit("receive_message",data)
+         const newMessage = await messages.create({
+    chatId: data.chatId,
+    senderId: data.senderID,
+    receiversId: data.receiversID,
+    
+    text: data.text
+  })
+
+
+        io.to(data.chatId).emit("receive_message",newMessage)
     })
 
     socket.on("disconnect",()=>{
