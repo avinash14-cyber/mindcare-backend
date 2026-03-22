@@ -122,7 +122,7 @@ route.get('/get_all_id',docMiddleware,idController.allIdController)
 route.get('/get_time_slot',jwtMiddleware,gettimeController.allTimeController)
 
 // end session
-route.patch('/end_session',jwtMiddleware,endController.endSessionController)
+route.patch('/end_session/:patientid',docMiddleware,endController.endSessionController)
 
 // chat messages
 route.get('/messages/:chatId',jwtMiddleware,messageController.getChatHistoryController)

@@ -21,38 +21,94 @@ const io = new Server(server,{
     methods:["GET","POST"]
     }
 })
-io.on("connection",(socket)=>{
 
-    console.log("User connected:",socket.id)
 
-    
-    socket.on("join_chat",(chatId)=>{
-        socket.join(chatId)
-        console.log(`User joined room: ${chatId}`)
+const onlineUsers = new Map() 
+
+io.on("connection", (socket) => {
+
+  console.log("User connected:", socket.id)
+
+  // 🟢 USER ONLINE
+  socket.on("user_online", (userId) => {
+    if (!onlineUsers.has(userId)) {
+      onlineUsers.set(userId, new Set())
+    }
+
+    onlineUsers.get(userId).add(socket.id)
+
+    io.emit("user_status", {
+      userId,
+      status: "online"
     })
-
-    socket.on("send_message",async(data)=>{
-        console.log("Message:",data)
-
-        
-         const newMessage = await messages.create({
-    chatId: data.chatId,
-    senderId: data.senderID,
-    receiversId: data.receiversID,
-    
-    text: data.text
   })
 
+  // 🔍 CHECK ONLINE STATUS (for initial load)
+  socket.on("check_online", (userId) => {
+    const isOnline = onlineUsers.has(userId)
 
-        io.to(data.chatId).emit("receive_message",newMessage)
+    socket.emit("user_status", {
+      userId,
+      status: isOnline ? "online" : "offline"
     })
+  })
 
-    socket.on("disconnect",()=>{
-        console.log("User disconnected")
-    })
+  // 💬 JOIN CHAT ROOM
+  socket.on("join_chat", (chatId) => {
+    socket.join(chatId)
+    console.log(`User joined room: ${chatId}`)
+  })
+
+  // 🚪 LEAVE CHAT ROOM
+  socket.on("leaveRoom", (chatId) => {
+    socket.leave(chatId)
+    console.log(`User left room: ${chatId}`)
+  })
+
+  // 📩 SEND MESSAGE
+  socket.on("send_message", async (data) => {
+    try {
+      console.log("Message:", data)
+
+      const newMessage = await messages.create({
+        chatId: data.chatId,
+        senderId: data.senderID,
+        receiversId: data.receiversID,
+        text: data.text
+      })
+
+      io.to(data.chatId).emit("receive_message", newMessage)
+
+    } catch (err) {
+      console.error("Message error:", err)
+    }
+  })
+
+  
+  socket.on("disconnect", () => {
+    for (let [userId, sockets] of onlineUsers.entries()) {
+
+      if (sockets.has(socket.id)) {
+        sockets.delete(socket.id)
+
+       
+        if (sockets.size === 0) {
+          onlineUsers.delete(userId)
+
+          io.emit("user_status", {
+            userId,
+            status: "offline"
+          })
+        }
+
+        break
+      }
+    }
+
+    console.log("User disconnected:", socket.id)
+  })
 
 })
-
 server.listen(PORT,()=>{
     console.log(`Server running on ${PORT}`);
     
